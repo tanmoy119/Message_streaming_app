@@ -17,7 +17,7 @@ app.use(express.json());
 
 //!PORT 
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 
 //! Listenner...........
 
@@ -36,6 +36,14 @@ const io  = require("socket.io")(server,{
 
 io.on("connection", (socket)=>{
     console.log(`Connected socket id is ${socket.id}`)
+    
+    var SocketID ;
+    io.to(socket.id).emit("id",socket.id);
+
+    socket.on("sendid",(id)=>{
+        io.SocketID = id;
+        console.log(io.SocketID);
+    });
 
     socket.on("messageStream", async (data)=>{
         try {
@@ -62,7 +70,10 @@ io.on("connection", (socket)=>{
                     
                     const addData = await new message(messageObect);
                     await addData.save();
-                    // console.log(messageObect)
+                    console.log(addData);
+                    console.log(io.SocketID);
+                    io.to(io.SocketID).emit("data",addData);
+                    
                     
                 }else{
                     console.log("Data is intarapted")
@@ -74,5 +85,9 @@ io.on("connection", (socket)=>{
             console.log(error);
         }  
     })
+
+    socket.on('disconnect', function () {
+        console.log(`disconnected..`)
+    });
 })
 

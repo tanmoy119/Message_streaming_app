@@ -5,7 +5,7 @@ const { names, cities } = require("./data/data.json");
 
 
 //! Server Url ...
-const url = "http://localhost:3000";
+const url = "http://localhost:4000";
 
 //!connect to listener..
 
@@ -67,7 +67,8 @@ const sendMessage = async () => {
     try {
 
         //! Generate Random number between 49 and 499..
-        const numberOfMessages = Math.floor(Math.random() * 451) + 49; 
+        const numberOfMessages = 1
+        // Math.floor(Math.random() * 451) + 49; 
         console.log(numberOfMessages);
 
         const messages = [];
@@ -79,9 +80,8 @@ const sendMessage = async () => {
 
         socketClient.emit('messageStream', messageStream);
 
-        // console.log("first")
-
-        // setTimeout(sendMessage, 5000); // Send every 10 seconds
+        //!For execute every 10 seconds..
+        setTimeout(sendMessage, 1000); // Send every 10 seconds
 
 
 
