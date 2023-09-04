@@ -49,11 +49,6 @@ const messageGenerator = async () => {
         //! Encrypt the message using AES-256-CTR
         const encryptedMessage = crypto.AES.encrypt(JSON.stringify(newOriginalMessage), passKey).toString();
 
-        // console.log(encryptedMessage);
-
-        // var bytes  =  crypto.AES.decrypt(encryptedMessage, passKey);
-
-        // console.log(bytes.toString(crypto.enc.Utf8));
         return encryptedMessage;
 
     } catch (err) {
@@ -67,8 +62,7 @@ const sendMessage = async () => {
     try {
 
         //! Generate Random number between 49 and 499..
-        const numberOfMessages = 1
-        // Math.floor(Math.random() * 451) + 49; 
+        const numberOfMessages =  Math.floor(Math.random() * 451) + 49; 
         console.log(numberOfMessages);
 
         const messages = [];
@@ -91,10 +85,6 @@ const sendMessage = async () => {
 }
 
 
-
-// messageGenerator();
-
-// sendMessage()
 
 socketClient.on('connect', ()=>{
     sendMessage();
